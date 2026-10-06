@@ -1,5 +1,7 @@
+import type { D1Database } from "@cloudflare/workers-types";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 export const runtime = "edge";
 
@@ -14,14 +16,38 @@ export async function POST(request: Request) {
       );
     }
 
+    const { env } = getCloudflareContext() as {
+      env: {
+        bandoallert_db: D1Database;
+      };
+    };
+
+    const existingUser = await env.bandoallert_db
+      .prepare("SELECT id FROM users WHERE email = ?")
+      .bind(email)
+      .first();
+
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "Email già registrata" },
+        { status: 409 }
+      );
+    }
+
     const passwordHash = await bcrypt.hash(password, 10);
+
+    await env.bandoallert_db
+      .prepare(
+        "INSERT INTO users (email, password_hash, plan) VALUES (?, ?, ?)"
+      )
+      .bind(email, passwordHash, "FREE")
+      .run();
 
     return NextResponse.json({
       success: true,
-      message: "Utente pronto per D1",
+      message: "Account creato",
       user: {
         email,
-        passwordHash,
         plan: "FREE"
       }
     });
