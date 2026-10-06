@@ -1,5 +1,13 @@
 {
-  "name": "bandoallert-ita",
-  "compatibility_date": "2026-10-06",
-  "pages_build_output_dir": ".open-next"
+	"name": "bandoallert-ita",
+	"compatibility_date": "2026-10-06",
+	"pages_build_output_dir": ".open-next",
+	"d1_databases": [
+		{
+			"binding": "bandoallert_db",
+			"database_name": "bandoallert-db",
+			"database_id": "46873b20-a934-4ef7-bc0d-8cd6456550a7",
+			"remote": true
+		}
+	]
 }
