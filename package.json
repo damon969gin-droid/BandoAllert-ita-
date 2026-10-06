@@ -13,7 +13,11 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.8",
+    "@types/node": "26.6.4",
+    "@types/react": "19.3.0",
+    "tailwindcss": "latest",
     "typescript": "latest",
-    "tailwindcss": "latest"
+    "wrangler": "^4.148.0"
   }
 }
