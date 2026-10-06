@@ -1,0 +1,8 @@
+name = "bandoalert-api"
+main = "src/index.js"
+compatibility_date = "2026-10-06"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "bandoalert-db"
+database_id = "REPLACE_WITH_YOUR_D1_ID"
